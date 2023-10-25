@@ -1,4 +1,8 @@
-@import-normalize; /* bring in normalize.css styles */
+/* @import-normalize; */
+/* bring in normalize.css styles */
+@import url(./components/styles.css);
+
+
 
 body {
   margin: 0;
