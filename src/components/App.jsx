@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Component } from "react";
 import { Form } from './Searchbar/Searchbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
  const API_KEY = '39240631-8a58999efa7d66452fb176341';
@@ -24,18 +26,22 @@ export class App extends Component {
 
   state = {
     images: [],
-     page : 1,
+    page: 1,
+     data:''
   }
   
-
+  getData = data => {
+  this.setState({data})
+}
 
   
   render() {
-   console.log(Form.state.data)
+   console.log(this.state.data)
   return (
    
     <>
-      <Form/>
+      <Form onSubmit={this.getData} />
+      <ToastContainer/>
     </>)
 
 }

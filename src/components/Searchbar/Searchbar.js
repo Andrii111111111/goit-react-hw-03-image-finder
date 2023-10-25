@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 
 export class Form extends Component {
   state = {
@@ -14,7 +15,12 @@ export class Form extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    // this.props.onSubmit(this.state);
+
+    if (this.state.data.trim() === '') {
+      toast('Введите данные для поиска)');
+      return;
+    }
+    this.props.onSubmit(this.state.data);
     this.reset();
   };
   reset = () => {
