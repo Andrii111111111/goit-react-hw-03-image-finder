@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+import { Forma } from './Searchbar.styles';
 
 export class Form extends Component {
   state = {
@@ -17,11 +18,11 @@ export class Form extends Component {
     evt.preventDefault();
 
     if (this.state.data.trim() === '') {
-      toast('Введите данные для поиска)');
+      toast.error('Введите данные для поиска)');
       return;
     }
     this.props.onSubmit(this.state.data);
-    this.reset();
+    this.setState({ data: '' });
   };
   reset = () => {
     this.setState({
@@ -32,11 +33,10 @@ export class Form extends Component {
     return (
       <>
         <header className="searchbar">
-          <form className="form" onSubmit={this.handleSubmit}>
+          <Forma className="form" onSubmit={this.handleSubmit}>
             <button type="submit" className="button">
               <span className="button-label">Search</span>
             </button>
-
             <input
               onChange={this.handleChange}
               value={this.state.data}
@@ -47,7 +47,7 @@ export class Form extends Component {
               autoFocus
               placeholder="Search images and photos"
             />
-          </form>
+          </Forma>
         </header>
       </>
     );
