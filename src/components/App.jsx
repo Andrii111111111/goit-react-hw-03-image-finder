@@ -7,7 +7,10 @@ import * as GetInfo from './GetInfo/GetInfo'
 import { ImageGallery,ImageGalleryItem } from './ImageGallery/ImageGallery.styled'
 import { But } from "./Button/Button.styles";
 import { Audio } from 'react-loader-spinner'
-import {Loading} from './Loader/Loader.styles'
+import { Loading } from './Loader/Loader.styles'
+
+// import * as basicLightbox from 'basiclightbox';
+
 
  
 
@@ -35,7 +38,7 @@ export class App extends Component {
         images: [...prevState.images, ...images.hits],
         buttonVisible: this.state.page < Math.ceil(images.totalHits / 12), 
       }));
-     
+    
     } catch (error) {
       console.log('Error');
     }
@@ -77,13 +80,14 @@ buttonClick = () => {
     color = 'green'
     ariaLabel = 'three-dots-loading'     
     wrapperStyle
-    wrapperClass
   /></Loading> }
       <ImageGallery>
         {this.state.images.map(({ id,webformatURL, largeImageURL,tags }) => {
-            return (
-              <ImageGalleryItem key={id}>
+          return (
+            <ImageGalleryItem key={id}>
+            
                 <img src={webformatURL} alt={tags} />
+             
               </ImageGalleryItem>
             );
           })}
@@ -91,8 +95,10 @@ buttonClick = () => {
       {this.state.buttonVisible && (
           <But type="button" onClick={this.buttonClick}>
             Load more
-          </But>
-        )}
+        </But>
+        
+      )}
+      
     </>)
 
 }
