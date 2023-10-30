@@ -18,7 +18,7 @@ export class Form extends Component {
     evt.preventDefault();
 
     if (this.state.data.trim() === '') {
-      toast.error('Введите данные для поиска)');
+      toast.error('Please enter your search details.');
       return;
     }
     this.props.onSubmit(this.state.data);
