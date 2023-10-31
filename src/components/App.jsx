@@ -55,8 +55,7 @@ export class App extends Component {
 
   getData = data => {
     this.setState({
-    images: [], page:1 });
-    this.setState({ data })
+    images: [], page:1, data:data });
   }
  
   buttonClick = () => {
