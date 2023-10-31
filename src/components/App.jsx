@@ -4,13 +4,10 @@ import { Form } from './Searchbar/Searchbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as GetInfo from './GetInfo/GetInfo'
-import { ImageGallery,ImageGalleryItem } from './ImageGallery/ImageGallery.styled'
 import { But } from "./Button/Button.styles";
 import { Audio } from 'react-loader-spinner'
 import { Loading } from './Loader/Loader.styles'
-import ModalImage from "react-modal-image";
-
-
+import { ImageGallery } from "./ImageGallery/ImageGallery";
 
 
 
@@ -31,25 +28,23 @@ export class App extends Component {
     ) {
       this.getImages();
     }
-   
   }
 
 
   getImages = async () => {
+    const { page, data } = this.state
+    
      try {
       this.setState({ loading:true })
-      const images = await GetInfo.getImages(
-        this.state.data,
-        this.state.page
-      );
+      const images = await GetInfo.getImages(data,page);
        
       this.setState(prevState => ({
         images: [...prevState.images, ...images.hits],
-        buttonVisible: this.state.page < Math.ceil(images.totalHits / 12), 
-      }));
-    if ((this.state.page === 1) & (images.totalHits === 0)) {
+        buttonVisible: page < Math.ceil(images.totalHits / 12),}));
+       
+    if ((page === 1) & (images.totalHits === 0)) {
       toast.error(
-        `Sorry, there are no images matching your search ${this.state.data}. Please try again.`
+        `Sorry, there are no images matching your search ${data}. Please try again.`
       );
     }
     } catch (error) {
@@ -59,9 +54,8 @@ export class App extends Component {
   };
 
   getData = data => {
-    this.setState.page = 1
-    this.setState(prevState => ({
-    images: [...prevState.images = []] }));
+    this.setState({
+    images: [], page:1 });
     this.setState({ data })
   }
  
@@ -70,34 +64,15 @@ export class App extends Component {
 };
   
   render() {
-    
+  
   return (
-   
     <>
       <Form onSubmit={this.getData} />
       <ToastContainer />
-         {this.state.loading && <Loading><Audio
-    height = "80"
-    width = "80"
-    radius = "9"
-    color = 'green'
-    ariaLabel = 'three-dots-loading'     
-    wrapperStyle
-  /></Loading> }
-      <ImageGallery>
-        {this.state.images.map(({ id,webformatURL, largeImageURL,tags }) => {
-          return (
-            <ImageGalleryItem key={id} >
-              {/* <img src={webformatURL} alt={tags} /> */}
-              {<ModalImage small={webformatURL} large={largeImageURL} alt={tags}/>}
-              </ImageGalleryItem>
-            );
-          })}
-      </ImageGallery>
-      {this.state.buttonVisible && (
-          <But type="button" onClick={this.buttonClick}>
-            Load more
-        </But>
+         {this.state.loading && <Loading><Audio/></Loading> }
+      <ImageGallery images={ this.state.images } />
+         {this.state.buttonVisible && (
+      <But type="button" onClick={this.buttonClick}>Load more</But>
       )}
     </>)
 }

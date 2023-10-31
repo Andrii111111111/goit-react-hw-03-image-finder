@@ -4,9 +4,7 @@ import { toast } from 'react-toastify';
 import { Forma } from './Searchbar.styles';
 
 export class Form extends Component {
-  state = {
-    data: '',
-  };
+  state = { data: '' };
 
   id = nanoid();
 

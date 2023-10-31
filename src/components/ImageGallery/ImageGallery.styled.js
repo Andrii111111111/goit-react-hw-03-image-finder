@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ImageGallery = styled.ul`
+export const ImageList = styled.ul`
   list-style: none;
   display: flex;
   gap: 10px;
@@ -8,7 +8,7 @@ export const ImageGallery = styled.ul`
   margin-top: 50px;
 `;
 
-export const ImageGalleryItem = styled.li`
+export const ListComponent = styled.li`
   max-width: 300px;
   max-height: 200px;
   display: inherit;
